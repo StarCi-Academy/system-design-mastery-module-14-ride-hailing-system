@@ -1,0 +1,31 @@
+name: 2-matching-and-dynamic-pricing
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: 2-matching-and-dynamic-pricing-redis
+    ports:
+      - "6380:6379"
+    networks:
+      - 2-matching-and-dynamic-pricing-network
+
+  api:
+    container_name: 2-matching-and-dynamic-pricing-api
+    build:
+      context: ../matching-service
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3000"
+    environment:
+      - PORT=3000
+      - REDIS_URL=redis://redis:6379
+      - GEO_KEY=drivers:live
+      - H3_RESOLUTION=9
+    depends_on:
+      - redis
+    networks:
+      - 2-matching-and-dynamic-pricing-network
+
+networks:
+  2-matching-and-dynamic-pricing-network:
+    name: 2-matching-and-dynamic-pricing-network

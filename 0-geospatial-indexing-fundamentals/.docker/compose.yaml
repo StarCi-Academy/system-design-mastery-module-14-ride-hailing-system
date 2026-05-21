@@ -1,0 +1,19 @@
+name: 0-geospatial-indexing-fundamentals
+
+services:
+  api:
+    container_name: 0-geospatial-indexing-fundamentals-api
+    build:
+      context: ../h3-geo-service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - H3_RESOLUTION=9
+    networks:
+      - 0-geospatial-indexing-fundamentals-network
+
+networks:
+  0-geospatial-indexing-fundamentals-network:
+    name: 0-geospatial-indexing-fundamentals-network

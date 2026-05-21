@@ -1,0 +1,30 @@
+name: 1-realtime-location-updates-at-scale
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: 1-realtime-location-updates-at-scale-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - 1-realtime-location-updates-at-scale-network
+
+  api:
+    container_name: 1-realtime-location-updates-at-scale-api
+    build:
+      context: ../location-tracker
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - PORT=3000
+      - REDIS_URL=redis://redis:6379
+      - GEO_KEY=drivers:live
+    depends_on:
+      - redis
+    networks:
+      - 1-realtime-location-updates-at-scale-network
+
+networks:
+  1-realtime-location-updates-at-scale-network:
+    name: 1-realtime-location-updates-at-scale-network
