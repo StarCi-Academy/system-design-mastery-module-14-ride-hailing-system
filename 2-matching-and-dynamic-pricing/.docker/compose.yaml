@@ -5,17 +5,15 @@ services:
     image: redis:7-alpine
     container_name: 2-matching-and-dynamic-pricing-redis
     ports:
-      - "6380:6379"
+      - "6397:6379"
     networks:
       - 2-matching-and-dynamic-pricing-network
 
   api:
+    image: starciacademy/system-design-matching-and-dynamic-pricing-api:latest
     container_name: 2-matching-and-dynamic-pricing-api
-    build:
-      context: ../matching-service
-      dockerfile: Dockerfile
     ports:
-      - "3002:3000"
+      - "3018:3000"
     environment:
       - PORT=3000
       - REDIS_URL=redis://redis:6379

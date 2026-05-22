@@ -2,12 +2,10 @@ name: 0-geospatial-indexing-fundamentals
 
 services:
   api:
+    image: starciacademy/system-design-geospatial-indexing-fundamentals-api:latest
     container_name: 0-geospatial-indexing-fundamentals-api
-    build:
-      context: ../h3-geo-service
-      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3016:3000"
     environment:
       - PORT=3000
       - H3_RESOLUTION=9
