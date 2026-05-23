@@ -5,7 +5,7 @@ services:
     image: redis:7-alpine
     container_name: 2-matching-and-dynamic-pricing-redis
     ports:
-      - "6397:6379"
+      - "6379:6379"
     networks:
       - 2-matching-and-dynamic-pricing-network
 
@@ -13,7 +13,7 @@ services:
     image: starciacademy/system-design-matching-and-dynamic-pricing-api:latest
     container_name: 2-matching-and-dynamic-pricing-api
     ports:
-      - "3018:3000"
+      - "3000:3000"
     environment:
       - PORT=3000
       - REDIS_URL=redis://redis:6379

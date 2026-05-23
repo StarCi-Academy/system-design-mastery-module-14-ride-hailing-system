@@ -5,7 +5,7 @@ services:
     image: starciacademy/system-design-geospatial-indexing-fundamentals-api:latest
     container_name: 0-geospatial-indexing-fundamentals-api
     ports:
-      - "3016:3000"
+      - "3000:3000"
     environment:
       - PORT=3000
       - H3_RESOLUTION=9

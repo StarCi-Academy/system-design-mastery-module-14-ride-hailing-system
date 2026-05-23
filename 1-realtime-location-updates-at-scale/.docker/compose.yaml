@@ -5,7 +5,7 @@ services:
     image: redis:7-alpine
     container_name: 1-realtime-location-updates-at-scale-redis
     ports:
-      - "6396:6379"
+      - "6379:6379"
     networks:
       - 1-realtime-location-updates-at-scale-network
 
@@ -13,7 +13,7 @@ services:
     image: starciacademy/system-design-realtime-location-updates-at-scale-api:latest
     container_name: 1-realtime-location-updates-at-scale-api
     ports:
-      - "3017:3000"
+      - "3000:3000"
     environment:
       - PORT=3000
       - REDIS_URL=redis://redis:6379
