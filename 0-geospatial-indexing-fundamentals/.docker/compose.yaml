@@ -1,0 +1,44 @@
+services:
+  # TypeScript (NestJS + h3-js) — host port 3000
+  api-typescript:
+    build:
+      context: ../0-typescript
+      dockerfile: Dockerfile
+    environment:
+      PORT: "3000"
+      H3_RESOLUTION: "9"
+    ports:
+      - "3000:3000"
+
+  # Java (Spring Boot + com.uber:h3) — host port 3001
+  api-java:
+    build:
+      context: ../1-java
+      dockerfile: Dockerfile
+    environment:
+      PORT: "3000"
+      H3_RESOLUTION: "9"
+    ports:
+      - "3001:3000"
+
+  # C# (ASP.NET Core + pocketken.H3) — host port 3002
+  api-csharp:
+    build:
+      context: ../2-csharp
+      dockerfile: Dockerfile
+    environment:
+      PORT: "3000"
+      H3_RESOLUTION: "9"
+    ports:
+      - "3002:3000"
+
+  # Go (stdlib + uber/h3-go/v4) — host port 3003
+  api-go:
+    build:
+      context: ../3-go
+      dockerfile: Dockerfile
+    environment:
+      PORT: "3000"
+      H3_RESOLUTION: "9"
+    ports:
+      - "3003:3000"

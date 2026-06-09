@@ -1,0 +1,43 @@
+# Docker stack for lesson: realtime location updates at scale (Java track).
+#
+# Working directory: 1-realtime-location-updates-at-scale/1-java/.docker
+#
+# Start stack:
+#   cd 1-realtime-location-updates-at-scale/1-java/.docker && docker compose up -d --build
+#
+# Cleanup:
+#   docker compose down -v
+#
+name: rtl-java
+
+services:
+  # Spring Boot 3 + Spring Data Redis (Lettuce) HTTP API — self-build, no cloud image.
+  location-tracker:
+    container_name: rtl-java-location-tracker
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "3017:3017"
+    environment:
+      - PORT=3017
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - HEARTBEAT_TTL_SEC=30
+    networks:
+      - rtl-java-network
+    depends_on:
+      - redis
+
+  # Redis 7 — geohash-encoded sorted set holding driver positions.
+  redis:
+    image: redis:7-alpine
+    container_name: rtl-java-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - rtl-java-network
+
+networks:
+  rtl-java-network:
+    name: rtl-java-network

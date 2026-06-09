@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>h3-geo-service</AssemblyName>
+    <RootNamespace>H3GeoService</RootNamespace>
+    <Description>H3 geospatial indexing demo — ASP.NET Core + pocketken.H3, pure CPU, no datastore.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="pocketken.H3" Version="4.0.0" />
+  </ItemGroup>
+
+</Project>

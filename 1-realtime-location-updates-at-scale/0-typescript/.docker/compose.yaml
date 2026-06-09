@@ -1,0 +1,43 @@
+# Docker stack for lesson: realtime location updates at scale (TypeScript track).
+#
+# Working directory: 1-realtime-location-updates-at-scale/0-typescript/.docker
+#
+# Start stack:
+#   cd 1-realtime-location-updates-at-scale/0-typescript/.docker && docker compose up -d --build
+#
+# Cleanup:
+#   docker compose down -v
+#
+name: rtl-typescript
+
+services:
+  # NestJS + ioredis HTTP API — lesson entrypoint (self-build, no cloud image).
+  location-tracker:
+    container_name: rtl-typescript-location-tracker
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "3017:3017"
+    environment:
+      - PORT=3017
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - HEARTBEAT_TTL_SEC=30
+    networks:
+      - rtl-typescript-network
+    depends_on:
+      - redis
+
+  # Redis 7 — geohash-encoded sorted set holding driver positions.
+  redis:
+    image: redis:7-alpine
+    container_name: rtl-typescript-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - rtl-typescript-network
+
+networks:
+  rtl-typescript-network:
+    name: rtl-typescript-network
